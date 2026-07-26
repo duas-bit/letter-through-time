@@ -10,53 +10,159 @@
 
 <style>
 
-
 * {
-    box-sizing: border-box;
+    box-sizing:border-box;
 }
-
 
 
 body {
 
-    margin: 0;
+    margin:0;
 
-    width: 100%;
+    height:100vh;
 
-    height: 100vh;
+    overflow:hidden;
 
-    overflow: hidden;
+    background:white;
 
-    background: #ffffff;
+    font-family:"Times New Roman", Times, serif;
 
-    color: #222;
+    color:#222;
 
-    font-family: "Times New Roman", Times, serif;
+}
+
+
+/* ==========================
+SCENE 1 - DEDICATION
+========================== */
+
+
+#dedication {
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    background:white;
+
+    z-index:30;
 
 }
 
 
 
-/* ===========================
-ENVELOPE INTRO
-=========================== */
+.dedication-text {
+
+    font-style:italic;
+
+}
 
 
-#intro {
 
-    position: fixed;
+.dedication-for {
 
-    inset: 0;
+    display:block;
 
-    display: flex;
+    font-size:clamp(22px,3vw,34px);
 
-    justify-content: center;
+    margin-bottom:15px;
 
-    align-items: center;
+}
 
-    background: white;
 
-    z-index: 5;
+
+.dedication-names {
+
+    display:block;
+
+    font-size:clamp(42px,6vw,72px);
+
+    white-space:nowrap;
+
+}
+
+
+
+#dedication.fade {
+
+    animation:fadeOut 1.5s ease forwards;
+
+}
+
+
+
+@keyframes fadeOut {
+
+    to {
+
+        opacity:0;
+
+        visibility:hidden;
+
+    }
+
+}
+
+
+
+
+
+/* ==========================
+SCENE 2 - ENVELOPE
+========================== */
+
+
+#envelopeScene {
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:white;
+
+    opacity:0;
+
+    z-index:20;
+
+}
+
+
+
+#envelopeScene.show {
+
+    animation:sceneFadeIn 1.2s ease forwards;
+
+}
+
+
+
+@keyframes sceneFadeIn {
+
+    from {
+
+        opacity:0;
+
+    }
+
+    to {
+
+        opacity:1;
+
+    }
 
 }
 
@@ -64,41 +170,57 @@ ENVELOPE INTRO
 
 .envelope {
 
-    position: relative;
 
-    width: min(85vw, 560px);
+    position:relative;
 
-    height: min(55vw, 340px);
 
-    background: #f3eee6;
+    width:min(85vw,560px);
 
-    border-radius: 12px;
+
+    height:min(55vw,340px);
+
+
+    background:#f3eee6;
+
+
+    border-radius:12px;
+
 
     box-shadow:
 
-    0 30px 70px rgba(0,0,0,0.15);
+    0 30px 70px rgba(0,0,0,.15);
 
-    transform: translateY(120vh);
 
-    animation: envelopeEnter 1.8s ease forwards;
+    transform:translateY(120vh);
+
 
 }
 
 
 
-@keyframes envelopeEnter {
+.envelope.rise {
+
+
+    animation:envelopeRise 1.8s ease forwards;
+
+
+}
+
+
+
+@keyframes envelopeRise {
 
 
     from {
 
-        transform: translateY(120vh);
+        transform:translateY(120vh);
 
     }
 
 
     to {
 
-        transform: translateY(0);
+        transform:translateY(0);
 
     }
 
@@ -107,38 +229,48 @@ ENVELOPE INTRO
 
 
 
-/* envelope flap */
-
-
 .flap {
+
 
     position:absolute;
 
+
     top:0;
+
 
     left:0;
 
+
     width:100%;
+
 
     height:55%;
 
+
     background:#e7ddcf;
 
-    clip-path: polygon(0 0, 100% 0, 50% 100%);
 
-    transform-origin: top;
+    clip-path:polygon(0 0,100% 0,50% 100%);
 
-    z-index:2;
 
-    animation: flapOpen 1.8s ease forwards;
+    transform-origin:top;
 
-    animation-delay:2s;
 
 }
 
 
 
-@keyframes flapOpen {
+.flap.open {
+
+
+    animation:openFlap 1.5s ease forwards;
+
+
+}
+
+
+
+@keyframes openFlap {
 
 
     from {
@@ -159,207 +291,9 @@ ENVELOPE INTRO
 
 
 
-/* ===========================
-MOVING COUPLE NAME
-=========================== */
-
-
-.moving-name {
-
-
-    position:fixed;
-
-
-    left:50%;
-
-
-    top:50%;
-
-
-    transform:
-
-
-    translate(-50%,-50%);
-
-
-    text-align:center;
-
-
-    font-style:italic;
-
-
-    white-space:nowrap;
-
-
-    z-index:20;
-
-
-    opacity:1;
-
-
-    pointer-events:none;
-
-
-}
-
-
-
-.for-text {
-
-
-    display:block;
-
-
-    font-size:clamp(18px,2.5vw,30px);
-
-
-    margin-bottom:12px;
-
-
-}
-
-
-
-.couple {
-
-
-    display:block;
-
-
-    font-size:clamp(38px,5vw,72px);
-
-
-}
-
-
-
-/* starting location over envelope */
-
-
-.moving-name.envelope-position {
-
-
-    top:50%;
-
-
-}
-
-
-
-/* final movement onto card */
-
-
-.moving-name.move {
-
-
-    animation: moveToCard 2.2s ease forwards;
-
-
-}
-
-
-
-@keyframes moveToCard {
-
-
-    from {
-
-
-        top:50%;
-
-
-        transform:
-
-
-        translate(-50%,-50%);
-
-
-    }
-
-
-    to {
-
-
-        top:calc(50% - 170px);
-
-
-        transform:
-
-
-        translate(-50%,-50%);
-
-
-    }
-
-
-}
-
-
-
-.moving-name.shrink .couple {
-
-
-    animation: shrinkName 2.2s ease forwards;
-
-
-}
-
-
-
-@keyframes shrinkName {
-
-
-    from {
-
-
-        font-size:clamp(38px,5vw,72px);
-
-
-    }
-
-
-    to {
-
-
-        font-size:clamp(25px,4vw,38px);
-
-
-    }
-
-
-}
-
-
-
-.moving-name.hide-for .for-text {
-
-
-    animation: removeFor 0.5s ease forwards;
-
-
-}
-
-
-
-@keyframes removeFor {
-
-
-    to {
-
-
-        opacity:0;
-
-
-    }
-
-
-}
-
-
-
-/* ===========================
+/* ==========================
 CARD
-=========================== */
+========================== */
 
 
 .card {
@@ -374,16 +308,16 @@ CARD
     left:50%;
 
 
-    width:min(90vw,680px);
-
-
-    min-height:560px;
-
-
     transform:
 
 
     translate(-50%,120vh);
+
+
+    width:min(90vw,680px);
+
+
+    min-height:560px;
 
 
     background:white;
@@ -398,7 +332,12 @@ CARD
     box-shadow:
 
 
-    0 35px 90px rgba(0,0,0,0.18);
+    0 35px 90px rgba(0,0,0,.18);
+
+
+    padding:
+
+    clamp(30px,6vw,65px);
 
 
     display:flex;
@@ -410,36 +349,27 @@ CARD
     align-items:center;
 
 
-    padding:
-
-
-    clamp(30px,6vw,65px);
-
-
     text-align:center;
 
 
-    opacity:0;
-
-
-    z-index:10;
+    z-index:25;
 
 
 }
 
 
 
-.card.show {
+.card.rise {
 
 
-    animation: cardEnter 2s ease forwards;
+    animation:cardRise 2s ease forwards;
 
 
 }
 
 
 
-@keyframes cardEnter {
+@keyframes cardRise {
 
 
     from {
@@ -449,9 +379,6 @@ CARD
 
 
         translate(-50%,120vh);
-
-
-        opacity:0;
 
 
     }
@@ -466,9 +393,6 @@ CARD
         translate(-50%,-50%);
 
 
-        opacity:1;
-
-
     }
 
 
@@ -476,11 +400,9 @@ CARD
 
 
 
-
-
-/* ===========================
+/* ==========================
 CONTENT
-=========================== */
+========================== */
 
 
 .content {
@@ -499,14 +421,14 @@ CONTENT
 .content.show {
 
 
-    animation:fadeIn 1.5s ease forwards;
+    animation:fadeContent 1.5s ease forwards;
 
 
 }
 
 
 
-@keyframes fadeIn {
+@keyframes fadeContent {
 
 
     from {
@@ -527,6 +449,21 @@ CONTENT
 
 
 
+.names {
+
+
+    font-size:clamp(26px,4vw,38px);
+
+    font-style:italic;
+
+    white-space:nowrap;
+
+    margin-bottom:30px;
+
+}
+
+
+
 h1 {
 
 
@@ -539,7 +476,7 @@ h1 {
     line-height:1.15;
 
 
-    margin:30px 0 25px;
+    margin:0 0 25px;
 
 
 }
@@ -565,21 +502,12 @@ h1 {
 
 
 
-/* ===========================
+/* ==========================
 COUNTDOWN
-=========================== */
+========================== */
 
 
 #countdown {
-
-
-    width:100%;
-
-
-    max-width:540px;
-
-
-    margin:auto;
 
 
     display:grid;
@@ -589,6 +517,9 @@ COUNTDOWN
 
 
     gap:18px;
+
+
+    width:100%;
 
 
 }
@@ -627,16 +558,16 @@ COUNTDOWN
 .label {
 
 
-    margin-top:10px;
-
-
     font-size:12px;
+
+
+    letter-spacing:2px;
 
 
     text-transform:uppercase;
 
 
-    letter-spacing:2px;
+    margin-top:10px;
 
 
 }
@@ -662,29 +593,23 @@ COUNTDOWN
 
 
 
-
-
 @media(max-width:600px){
 
 
-.envelope {
+.dedication-names {
 
 
-    width:92vw;
-
-
-    height:58vw;
-
+    font-size:32px;
 
 }
 
 
 
-.couple {
+.envelope {
 
+    width:92vw;
 
-    font-size:34px;
-
+    height:58vw;
 
 }
 
@@ -692,15 +617,9 @@ COUNTDOWN
 
 .card {
 
-
     width:92vw;
 
-
     min-height:500px;
-
-
-    border-radius:22px;
-
 
 }
 
@@ -708,9 +627,7 @@ COUNTDOWN
 
 #countdown {
 
-
     grid-template-columns:repeat(2,1fr);
-
 
 }
 
@@ -718,15 +635,12 @@ COUNTDOWN
 
 h1 {
 
-
     font-size:34px;
 
-
 }
 
 
 }
-
 
 
 </style>
@@ -735,18 +649,25 @@ h1 {
 <body>
 
 
-<!-- ===========================
-ENVELOPE
-=========================== -->
+<!-- ==========================
+SCENE 1 - DEDICATION
+========================== -->
 
 
-<div id="intro">
+<div id="dedication">
 
 
-    <div class="envelope">
+    <div class="dedication-text">
 
 
-        <div class="flap"></div>
+        <span class="dedication-for">
+            For
+        </span>
+
+
+        <span class="dedication-names">
+            Brigitte & Cameron
+        </span>
 
 
     </div>
@@ -757,26 +678,22 @@ ENVELOPE
 
 
 
-<!-- ===========================
-MOVING NAME
-(ONE SINGLE ELEMENT)
-=========================== -->
+
+<!-- ==========================
+SCENE 2 - ENVELOPE
+========================== -->
 
 
-<div 
-class="moving-name envelope-position" 
-id="movingName"
->
+<div id="envelopeScene">
 
 
-    <span class="for-text">
-        For
-    </span>
+    <div class="envelope" id="envelope">
 
 
-    <span class="couple">
-        Brigitte & Cameron
-    </span>
+        <div class="flap" id="flap"></div>
+
+
+    </div>
 
 
 </div>
@@ -785,9 +702,11 @@ id="movingName"
 
 
 
-<!-- ===========================
-CARD
-=========================== -->
+
+
+<!-- ==========================
+SCENE 3 - CARD
+========================== -->
 
 
 <div class="card" id="card">
@@ -796,15 +715,26 @@ CARD
 <div class="content" id="content">
 
 
+<div class="names">
+
+Brigitte & Cameron
+
+</div>
+
+
 
 <h1>
 
 <strong>
+
 A Letter<br>
+
 Through Time
+
 </strong>
 
 </h1>
+
 
 
 
@@ -823,7 +753,9 @@ July 25, 2027
 
 
 
+
 <div id="countdown">
+
 
 
 <div class="time">
@@ -884,6 +816,8 @@ Seconds
 </div>
 
 
+
+
 </div>
 
 
@@ -899,10 +833,14 @@ please return when the countdown reaches zero
 
 
 
+
 </div>
 
 
 </div>
+
+
+
 
 
 
@@ -912,92 +850,120 @@ please return when the countdown reaches zero
 <script>
 
 
-/* ===========================
+/* ==========================
 ANIMATION SEQUENCE
-=========================== */
+========================== */
 
 
-const intro = document.getElementById("intro");
+const dedication = document.getElementById("dedication");
+
+const envelopeScene = document.getElementById("envelopeScene");
+
+const envelope = document.getElementById("envelope");
+
+const flap = document.getElementById("flap");
 
 const card = document.getElementById("card");
-
-const movingName = document.getElementById("movingName");
 
 const content = document.getElementById("content");
 
 
 
 
-// Envelope rises first automatically from CSS
 
-
-
-
-// Card pulls upward from envelope
+// Scene 1 fades away
 
 setTimeout(() => {
 
 
-    card.classList.add("show");
+    dedication.classList.add("fade");
 
 
-}, 3800);
-
-
-
-
-
-// Remove envelope after card arrives
-
-setTimeout(() => {
-
-
-    intro.style.opacity = "0";
-
-
-    intro.style.visibility = "hidden";
-
-
-}, 5600);
+}, 3000);
 
 
 
 
 
-// Move the SAME couple name onto card
+
+
+// Envelope appears
 
 setTimeout(() => {
 
 
-    movingName.classList.add("move");
+    envelopeScene.classList.add("show");
 
 
-    movingName.classList.add("shrink");
-
-
-}, 6000);
+}, 4300);
 
 
 
 
 
-
-// Remove "For" after movement begins
+// Envelope rises
 
 setTimeout(() => {
 
 
-    movingName.classList.add("hide-for");
+    envelope.classList.add("rise");
 
 
-}, 7000);
-
-
-
+}, 4500);
 
 
 
-// Reveal card contents
+
+
+
+// Flap opens
+
+setTimeout(() => {
+
+
+    flap.classList.add("open");
+
+
+}, 6500);
+
+
+
+
+
+
+// Card comes out
+
+setTimeout(() => {
+
+
+    card.classList.add("rise");
+
+
+}, 7800);
+
+
+
+
+
+
+// Remove envelope scene
+
+setTimeout(() => {
+
+
+    envelopeScene.style.opacity="0";
+
+    envelopeScene.style.visibility="hidden";
+
+
+}, 9500);
+
+
+
+
+
+
+// Reveal final details
 
 setTimeout(() => {
 
@@ -1005,7 +971,7 @@ setTimeout(() => {
     content.classList.add("show");
 
 
-}, 8200);
+}, 9800);
 
 
 
@@ -1013,9 +979,11 @@ setTimeout(() => {
 
 
 
-/* ===========================
+
+
+/* ==========================
 COUNTDOWN
-=========================== */
+========================== */
 
 
 const unlockDate = new Date(
@@ -1023,6 +991,7 @@ const unlockDate = new Date(
 "July 25, 2027 00:00:00"
 
 ).getTime();
+
 
 
 
@@ -1059,7 +1028,6 @@ return;
 
 
 
-
 const days = Math.floor(
 
 distance /
@@ -1067,6 +1035,7 @@ distance /
 (1000 * 60 * 60 * 24)
 
 );
+
 
 
 
@@ -1135,7 +1104,9 @@ document.getElementById("minutes").innerHTML = minutes;
 document.getElementById("seconds").innerHTML = seconds;
 
 
+
 }
+
 
 
 
@@ -1148,7 +1119,6 @@ setInterval(updateCountdown,1000);
 
 
 </script>
-
 
 
 </body>
