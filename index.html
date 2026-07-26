@@ -10,6 +10,7 @@
 
 <style>
 
+
 * {
     box-sizing: border-box;
 }
@@ -19,20 +20,23 @@ body {
 
     margin: 0;
 
+    height: 100vh;
+
+    overflow: hidden;
+
     background: #ffffff;
 
     color: #222;
 
     font-family: "Times New Roman", Times, serif;
 
-    overflow: hidden;
-
 }
 
 
-/* =========================
-INTRO SCENE
-========================= */
+
+/* ==================================
+ENVELOPE INTRO
+================================== */
 
 
 #intro {
@@ -41,15 +45,15 @@ INTRO SCENE
 
     inset: 0;
 
-    background: white;
-
     display: flex;
 
     justify-content: center;
 
     align-items: center;
 
-    z-index: 20;
+    background: white;
+
+    z-index: 10;
 
 }
 
@@ -57,18 +61,19 @@ INTRO SCENE
 
 .envelope {
 
-    width: clamp(280px, 55vw, 420px);
+    width: min(85vw, 520px);
 
-    height: clamp(180px, 35vw, 260px);
+    height: min(55vw, 320px);
 
     background: #f4f0ea;
 
+    border-radius: 10px;
+
     position: relative;
 
-    border-radius: 8px;
-
     box-shadow:
-    0 25px 50px rgba(0,0,0,0.12);
+
+    0 30px 70px rgba(0,0,0,0.14);
 
     transform: translateY(120vh);
 
@@ -99,47 +104,32 @@ INTRO SCENE
 
 
 
-.envelope:before {
-
-    content:"";
-
-    position:absolute;
-
-    top:0;
-
-    left:0;
-
-    width:0;
-
-    height:0;
-
-    border-left:50% solid transparent;
-
-}
-
+/* Envelope flap */
 
 
 .envelope-flap {
 
-    position:absolute;
+    position: absolute;
 
-    top:0;
+    top: 0;
 
-    left:0;
+    left: 0;
 
-    width:100%;
+    width: 100%;
 
-    height:55%;
+    height: 55%;
 
-    background:#e8dfd3;
+    background: #e8dfd3;
 
     clip-path: polygon(0 0, 100% 0, 50% 100%);
 
-    transform-origin:top;
+    transform-origin: top;
+
+    z-index: 2;
 
     animation: openFlap 1.8s ease forwards;
 
-    animation-delay:2s;
+    animation-delay: 2s;
 
 }
 
@@ -150,14 +140,14 @@ INTRO SCENE
 
     from {
 
-        transform:rotateX(0deg);
+        transform: rotateX(0deg);
 
     }
 
 
     to {
 
-        transform:rotateX(180deg);
+        transform: rotateX(180deg);
 
     }
 
@@ -166,138 +156,136 @@ INTRO SCENE
 
 
 
-.envelope-text {
+/* The moving couple name */
 
+.moving-name {
 
-    position:absolute;
+    position: absolute;
 
-    width:100%;
+    left: 50%;
 
-    top:50%;
+    top: 58%;
 
-    transform:translateY(-50%);
+    transform:
 
-    text-align:center;
+    translate(-50%, -50%);
 
-    font-size:clamp(28px, 5vw, 48px);
+    text-align: center;
 
-    font-style:italic;
+    font-style: italic;
 
-    line-height:1.25;
+    white-space: nowrap;
 
-    padding:20px;
-
-}
-
-
-
-.envelope-text span {
-
-    display:block;
+    z-index: 3;
 
 }
 
 
 
+.moving-name .for-text {
+
+    display: block;
+
+    font-size: clamp(20px, 3vw, 32px);
+
+    margin-bottom: 10px;
+
+}
 
 
-/* =========================
-CARD REVEAL
-========================= */
 
+.moving-name .couple {
+
+    display: block;
+
+    font-size: clamp(38px, 6vw, 70px);
+
+}
+
+
+
+/* ==================================
+FLOATING CARD
+================================== */
 
 
 .card {
 
-    position:absolute;
+    position: fixed;
 
-    width:min(90vw, 650px);
+    top: 50%;
 
-    min-height:520px;
+    left: 50%;
 
-    background:white;
+    transform:
 
-    border-radius:25px;
+    translate(-50%, 120vh);
 
-    border:1px solid #ece7df;
+    width: min(90vw, 680px);
+
+    min-height: 540px;
+
+    background: white;
+
+    border-radius: 28px;
+
+    border: 1px solid #ebe5dd;
 
     box-shadow:
 
-    0 25px 60px rgba(0,0,0,0.15);
+    0 35px 80px rgba(0,0,0,0.16);
 
-    padding:clamp(30px,5vw,60px);
+    padding:
 
-    display:flex;
+    clamp(30px, 6vw, 65px);
 
-    flex-direction:column;
+    display: flex;
 
-    justify-content:center;
+    flex-direction: column;
 
-    align-items:center;
+    justify-content: center;
 
-    text-align:center;
+    align-items: center;
 
-    transform:translateY(120vh);
+    text-align: center;
 
-    opacity:0;
+    opacity: 0;
 
-}
-
-
-
-.card.reveal {
-
-    animation:
-
-    cardRise 2s ease forwards;
+    z-index: 5;
 
 }
 
 
 
-@keyframes cardRise {
+.card.show {
+
+    animation: cardFloat 2s ease forwards;
+
+}
+
+
+
+@keyframes cardFloat {
 
 
     from {
 
-        transform:translateY(120vh);
+        transform:
 
-        opacity:0;
+        translate(-50%, 120vh);
+
+        opacity: 0;
 
     }
 
 
     to {
 
-        transform:translateY(0);
+        transform:
 
-        opacity:1;
+        translate(-50%, -50%);
 
-    }
-
-
-}
-
-
-
-#intro.exit {
-
-    animation:
-
-    introExit 1.5s ease forwards;
-
-}
-
-
-
-@keyframes introExit {
-
-
-    to {
-
-        opacity:0;
-
-        visibility:hidden;
+        opacity: 1;
 
     }
 
@@ -308,68 +296,84 @@ CARD REVEAL
 
 
 
-/* =========================
-MAIN CONTENT
-========================= */
+/* ==================================
+MOVING NAME FINAL POSITION
+================================== */
 
 
+.moving-name.move {
 
-.names {
-
-    font-size:clamp(26px,4vw,38px);
-
-    font-style:italic;
-
-    white-space:nowrap;
-
-    margin-bottom:25px;
-
-    opacity:0;
-
-    transform:translateY(40px);
+    animation: moveName 2s ease forwards;
 
 }
 
 
 
-.names.show {
-
-    animation:
-
-    nameMove 2s ease forwards;
-
-}
-
-
-
-@keyframes nameMove {
+@keyframes moveName {
 
 
     from {
 
-        opacity:0;
 
-        transform:translateY(40px);
+        top: 58%;
+
+
+        left: 50%;
+
+
+        transform:
+
+        translate(-50%, -50%);
+
 
     }
 
 
     to {
 
-        opacity:1;
 
-        transform:translateY(0);
+        top: 18%;
+
+
+        left: 50%;
+
+
+        transform:
+
+        translate(-50%, 0);
+
 
     }
 
 
 }
 
+
+
+.moving-name.final .for-text {
+
+    display: none;
+
+}
+
+
+
+.moving-name.final .couple {
+
+    font-size: clamp(26px, 4vw, 38px);
+
+}
+
+
+
+/* ==================================
+CONTENT
+================================== */
 
 
 .content {
 
-    opacity:0;
+    opacity: 0;
 
 }
 
@@ -377,27 +381,25 @@ MAIN CONTENT
 
 .content.show {
 
-    animation:
-
-    fadeContent 1.8s ease forwards;
+    animation: contentFade 1.5s ease forwards;
 
 }
 
 
 
-@keyframes fadeContent {
+@keyframes contentFade {
 
 
     from {
 
-        opacity:0;
+        opacity: 0;
 
     }
 
 
     to {
 
-        opacity:1;
+        opacity: 1;
 
     }
 
@@ -408,13 +410,15 @@ MAIN CONTENT
 
 h1 {
 
-    font-size:clamp(34px,5vw,52px);
+    font-size:
 
-    font-weight:normal;
+    clamp(34px, 5vw, 52px);
 
-    line-height:1.1;
+    line-height: 1.15;
 
-    margin:0 0 25px;
+    font-weight: normal;
+
+    margin: 35px 0 25px;
 
 }
 
@@ -422,31 +426,38 @@ h1 {
 
 .dates {
 
-    font-size:clamp(16px,2.5vw,22px);
+    font-size:
 
-    font-style:italic;
+    clamp(16px, 2.5vw, 22px);
 
-    color:#555;
+    font-style: italic;
 
-    margin-bottom:50px;
+    color: #555;
+
+    margin-bottom: 45px;
 
 }
 
 
 
+/* ==================================
+COUNTDOWN
+================================== */
+
+
 #countdown {
 
-    display:grid;
+    width: 100%;
+
+    max-width: 540px;
+
+    display: grid;
 
     grid-template-columns:
 
-    repeat(4, minmax(70px, 1fr));
+    repeat(4, 1fr);
 
-    gap:20px;
-
-    width:100%;
-
-    max-width:520px;
+    gap: 18px;
 
 }
 
@@ -454,11 +465,11 @@ h1 {
 
 .time {
 
-    background:#f5f1eb;
+    background: #f5f1eb;
 
-    border-radius:16px;
+    border-radius: 16px;
 
-    padding:20px 10px;
+    padding: 22px 10px;
 
 }
 
@@ -466,11 +477,11 @@ h1 {
 
 .number {
 
-    display:block;
+    display: block;
 
-    font-size:clamp(32px,5vw,55px);
+    font-size:
 
-    line-height:1;
+    clamp(32px, 5vw, 55px);
 
 }
 
@@ -478,13 +489,13 @@ h1 {
 
 .label {
 
-    margin-top:10px;
+    margin-top: 10px;
 
-    font-size:12px;
+    font-size: 12px;
 
-    letter-spacing:2px;
+    text-transform: uppercase;
 
-    text-transform:uppercase;
+    letter-spacing: 2px;
 
 }
 
@@ -492,26 +503,54 @@ h1 {
 
 .message {
 
-    margin-top:45px;
+    margin-top: 45px;
 
-    font-size:15px;
+    font-size: 14px;
 
-    font-style:italic;
+    font-style: italic;
 
-    color:#666;
+    color: #666;
 
 }
 
+
+
+/* ==================================
+MOBILE
+================================== */
 
 
 @media(max-width:600px){
 
 
-.card {
+.envelope {
 
-    min-height:480px;
+    width: 90vw;
+
+    height: 55vw;
 
 }
+
+
+
+.moving-name .couple {
+
+    font-size: 34px;
+
+}
+
+
+
+.card {
+
+    width: 92vw;
+
+    min-height: 500px;
+
+    border-radius: 22px;
+
+}
+
 
 
 #countdown {
@@ -520,21 +559,27 @@ h1 {
 
     repeat(2,1fr);
 
-    gap:15px;
+}
+
+
+
+h1 {
+
+    font-size: 34px;
 
 }
 
 
-.names {
 
-    font-size:24px;
+.moving-name.final .couple {
 
-}
-
+    font-size: 25px;
 
 }
 
 
+
+}
 
 </style>
 
@@ -542,7 +587,11 @@ h1 {
 <body>
 
 
-<!-- INTRO ENVELOPE -->
+
+<!-- =========================
+ENVELOPE SCENE
+========================= -->
+
 
 <div id="intro">
 
@@ -553,33 +602,44 @@ h1 {
 <div class="envelope-flap"></div>
 
 
-<div class="envelope-text">
 
-<span>For</span>
-
-<span>Brigitte & Cameron</span>
-
-</div>
+<div class="moving-name" id="movingName">
 
 
-</div>
+<span class="for-text">
+
+For
+
+</span>
 
 
-</div>
-
-
-
-
-<!-- FLOATING CARD -->
-
-<div class="card" id="card">
-
-
-<div class="names" id="names">
+<span class="couple">
 
 Brigitte & Cameron
 
+</span>
+
+
 </div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- =========================
+FLOATING CARD
+========================= -->
+
+
+<div class="card" id="card">
+
 
 
 
@@ -587,11 +647,22 @@ Brigitte & Cameron
 <div class="content" id="content">
 
 
+
+
+
 <h1>
 
-<strong>A Letter<br class="mobile-break"> Through Time</strong>
+<strong>
+
+A Letter<br>
+
+Through Time
+
+</strong>
 
 </h1>
+
+
 
 
 
@@ -608,49 +679,113 @@ July 25, 2027
 
 
 
+
+
 <div id="countdown">
 
 
-<div class="time">
-
-<span class="number" id="days">00</span>
-
-<span class="label">Days</span>
-
-</div>
 
 
 
 <div class="time">
 
-<span class="number" id="hours">00</span>
 
-<span class="label">Hours</span>
+<span class="number" id="days">
+
+00
+
+</span>
+
+
+<span class="label">
+
+Days
+
+</span>
+
 
 </div>
+
+
+
 
 
 
 <div class="time">
 
-<span class="number" id="minutes">00</span>
 
-<span class="label">Minutes</span>
+<span class="number" id="hours">
+
+00
+
+</span>
+
+
+<span class="label">
+
+Hours
+
+</span>
+
 
 </div>
+
+
+
 
 
 
 <div class="time">
 
-<span class="number" id="seconds">00</span>
 
-<span class="label">Seconds</span>
+<span class="number" id="minutes">
+
+00
+
+</span>
+
+
+<span class="label">
+
+Minutes
+
+</span>
+
 
 </div>
 
 
+
+
+
+
+<div class="time">
+
+
+<span class="number" id="seconds">
+
+00
+
+</span>
+
+
+<span class="label">
+
+Seconds
+
+</span>
+
+
 </div>
+
+
+
+
+
+</div>
+
+
+
 
 
 
@@ -662,28 +797,27 @@ please return when the countdown reaches zero
 
 
 
+
+
+
 </div>
 
 
+
 </div>
-
-
-
-
-
 <script>
 
 
-/* =========================
-REVEAL ANIMATION TIMING
-========================= */
+/* =================================
+ANIMATION SEQUENCE
+================================= */
 
 
 const intro = document.getElementById("intro");
 
 const card = document.getElementById("card");
 
-const names = document.getElementById("names");
+const movingName = document.getElementById("movingName");
 
 const content = document.getElementById("content");
 
@@ -691,54 +825,68 @@ const content = document.getElementById("content");
 
 
 
-// Card pulls out of envelope
+// 1. Card pulls out of envelope
 
 setTimeout(() => {
 
 
-card.classList.add("reveal");
+    card.classList.add("show");
 
 
-}, 3800);
-
-
-
-
-
-// Envelope exits after card appears
-
-setTimeout(() => {
-
-
-intro.classList.add("exit");
-
-
-}, 5200);
+}, 4000);
 
 
 
 
 
-// Names appear first
+// 2. Envelope slides away
 
 setTimeout(() => {
 
 
-names.classList.add("show");
+    intro.classList.add("exit");
 
 
-}, 6200);
+}, 5500);
 
 
 
 
 
-// Remaining content appears after names settle
+// 3. SAME NAME MOVES FROM ENVELOPE TO CARD
 
 setTimeout(() => {
 
 
-content.classList.add("show");
+    movingName.classList.add("move");
+
+
+}, 6000);
+
+
+
+
+
+// 4. Hide "For" after movement
+
+setTimeout(() => {
+
+
+    movingName.classList.add("final");
+
+
+}, 7600);
+
+
+
+
+
+// 5. Reveal the rest of the card
+
+setTimeout(() => {
+
+
+    content.classList.add("show");
 
 
 }, 8200);
@@ -749,12 +897,19 @@ content.classList.add("show");
 
 
 
-/* =========================
+
+/* =================================
 COUNTDOWN
-========================= */
+================================= */
 
 
-const unlockDate = new Date("July 25, 2027 00:00:00").getTime();
+
+const unlockDate = new Date(
+
+"July 25, 2027 00:00:00"
+
+).getTime();
+
 
 
 
@@ -762,7 +917,9 @@ const unlockDate = new Date("July 25, 2027 00:00:00").getTime();
 function updateCountdown(){
 
 
+
 const now = new Date().getTime();
+
 
 
 const distance = unlockDate - now;
@@ -774,12 +931,15 @@ const distance = unlockDate - now;
 if(distance <= 0){
 
 
+
 document.getElementById("countdown").innerHTML =
 
 "Your letter is ready.";
 
 
+
 return;
+
 
 
 }
@@ -788,41 +948,67 @@ return;
 
 
 
+
+
 const days = Math.floor(
 
-distance / (1000 * 60 * 60 * 24)
+distance /
+
+(1000 * 60 * 60 * 24)
 
 );
+
+
 
 
 
 const hours = Math.floor(
 
-(distance % (1000 * 60 * 60 * 24))
+(distance %
 
-/ (1000 * 60 * 60)
+(1000 * 60 * 60 * 24))
+
+/
+
+(1000 * 60 * 60)
 
 );
+
+
+
 
 
 
 const minutes = Math.floor(
 
-(distance % (1000 * 60 * 60))
+(distance %
 
-/ (1000 * 60)
+(1000 * 60 * 60))
+
+/
+
+(1000 * 60)
 
 );
+
+
+
 
 
 
 const seconds = Math.floor(
 
-(distance % (1000 * 60))
+(distance %
 
-/ 1000
+(1000 * 60))
+
+/
+
+1000
 
 );
+
+
 
 
 
@@ -831,10 +1017,13 @@ const seconds = Math.floor(
 document.getElementById("days").innerHTML = days;
 
 
+
 document.getElementById("hours").innerHTML = hours;
 
 
+
 document.getElementById("minutes").innerHTML = minutes;
+
 
 
 document.getElementById("seconds").innerHTML = seconds;
@@ -850,15 +1039,15 @@ document.getElementById("seconds").innerHTML = seconds;
 updateCountdown();
 
 
-setInterval(updateCountdown,1000);
 
+setInterval(updateCountdown,1000);
 
 
 
 </script>
 
 
-</body>
 
+</body>
 
 </html>
