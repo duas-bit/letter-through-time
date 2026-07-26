@@ -10,11 +10,16 @@
 
 <style>
 
+* {
+    box-sizing: border-box;
+}
+
+
 body {
 
     margin: 0;
 
-    background: white;
+    background: #ffffff;
 
     color: #222;
 
@@ -25,9 +30,9 @@ body {
 }
 
 
-/* =====================
-ENVELOPE INTRO
-===================== */
+/* =========================
+INTRO SCENE
+========================= */
 
 
 #intro {
@@ -44,7 +49,7 @@ ENVELOPE INTRO
 
     align-items: center;
 
-    z-index: 10;
+    z-index: 20;
 
 }
 
@@ -52,17 +57,43 @@ ENVELOPE INTRO
 
 .envelope {
 
-    width: 260px;
+    width: clamp(280px, 55vw, 420px);
 
-    height: 170px;
+    height: clamp(180px, 35vw, 260px);
 
-    background: #f4f1ed;
+    background: #f4f0ea;
 
     position: relative;
 
-    border-radius: 5px;
+    border-radius: 8px;
 
-    box-shadow: 0 15px 35px rgba(0,0,0,.08);
+    box-shadow:
+    0 25px 50px rgba(0,0,0,0.12);
+
+    transform: translateY(120vh);
+
+    animation: envelopeRise 1.8s ease forwards;
+
+}
+
+
+
+@keyframes envelopeRise {
+
+
+    from {
+
+        transform: translateY(120vh);
+
+    }
+
+
+    to {
+
+        transform: translateY(0);
+
+    }
+
 
 }
 
@@ -78,35 +109,37 @@ ENVELOPE INTRO
 
     left:0;
 
-    border-left:130px solid transparent;
+    width:0;
 
-    border-right:130px solid transparent;
+    height:0;
 
-    border-top:90px solid #e8e1d8;
-
-    transform-origin:top;
-
-    animation:openFlap 1.8s ease forwards;
-
-    animation-delay:1s;
+    border-left:50% solid transparent;
 
 }
 
 
 
-.envelope-text {
+.envelope-flap {
 
     position:absolute;
 
+    top:0;
+
+    left:0;
+
     width:100%;
 
-    top:75px;
+    height:55%;
 
-    text-align:center;
+    background:#e8dfd3;
 
-    font-size:18px;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
 
-    letter-spacing:1px;
+    transform-origin:top;
+
+    animation: openFlap 1.8s ease forwards;
+
+    animation-delay:2s;
 
 }
 
@@ -114,11 +147,13 @@ ENVELOPE INTRO
 
 @keyframes openFlap {
 
+
     from {
 
-        transform:rotateX(0);
+        transform:rotateX(0deg);
 
     }
+
 
     to {
 
@@ -126,41 +161,71 @@ ENVELOPE INTRO
 
     }
 
-}
-
-
-
-.hideIntro {
-
-    animation: fadeIntro 1.5s ease forwards;
 
 }
 
 
 
-@keyframes fadeIntro {
+.envelope-text {
 
-    to {
 
-        opacity:0;
+    position:absolute;
 
-        visibility:hidden;
+    width:100%;
 
-    }
+    top:50%;
+
+    transform:translateY(-50%);
+
+    text-align:center;
+
+    font-size:clamp(28px, 5vw, 48px);
+
+    font-style:italic;
+
+    line-height:1.25;
+
+    padding:20px;
 
 }
 
 
-/* =====================
-MAIN CONTENT
-===================== */
+
+.envelope-text span {
+
+    display:block;
+
+}
 
 
-.container {
 
-    min-height:650px;
 
-    height:100vh;
+
+/* =========================
+CARD REVEAL
+========================= */
+
+
+
+.card {
+
+    position:absolute;
+
+    width:min(90vw, 650px);
+
+    min-height:520px;
+
+    background:white;
+
+    border-radius:25px;
+
+    border:1px solid #ece7df;
+
+    box-shadow:
+
+    0 25px 60px rgba(0,0,0,0.15);
+
+    padding:clamp(30px,5vw,60px);
 
     display:flex;
 
@@ -172,21 +237,7 @@ MAIN CONTENT
 
     text-align:center;
 
-    padding:40px 20px;
-
-    box-sizing:border-box;
-
-}
-
-
-
-/* NAME TRANSITION */
-
-.names {
-
-    font-size:26px;
-
-    margin-bottom:15px;
+    transform:translateY(120vh);
 
     opacity:0;
 
@@ -194,22 +245,111 @@ MAIN CONTENT
 
 
 
-.names.show {
+.card.reveal {
 
-    animation:nameAppear 2s ease forwards;
+    animation:
+
+    cardRise 2s ease forwards;
 
 }
 
 
 
-@keyframes nameAppear {
+@keyframes cardRise {
+
+
+    from {
+
+        transform:translateY(120vh);
+
+        opacity:0;
+
+    }
+
+
+    to {
+
+        transform:translateY(0);
+
+        opacity:1;
+
+    }
+
+
+}
+
+
+
+#intro.exit {
+
+    animation:
+
+    introExit 1.5s ease forwards;
+
+}
+
+
+
+@keyframes introExit {
+
+
+    to {
+
+        opacity:0;
+
+        visibility:hidden;
+
+    }
+
+
+}
+
+
+
+
+
+/* =========================
+MAIN CONTENT
+========================= */
+
+
+
+.names {
+
+    font-size:clamp(26px,4vw,38px);
+
+    font-style:italic;
+
+    white-space:nowrap;
+
+    margin-bottom:25px;
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+}
+
+
+
+.names.show {
+
+    animation:
+
+    nameMove 2s ease forwards;
+
+}
+
+
+
+@keyframes nameMove {
 
 
     from {
 
         opacity:0;
 
-        transform:translateY(-20px);
+        transform:translateY(40px);
 
     }
 
@@ -226,8 +366,6 @@ MAIN CONTENT
 }
 
 
-/* OTHER CONTENT */
-
 
 .content {
 
@@ -239,13 +377,15 @@ MAIN CONTENT
 
 .content.show {
 
-    animation:contentReveal 1.5s ease forwards;
+    animation:
+
+    fadeContent 1.8s ease forwards;
 
 }
 
 
 
-@keyframes contentReveal {
+@keyframes fadeContent {
 
 
     from {
@@ -268,11 +408,11 @@ MAIN CONTENT
 
 h1 {
 
-    font-size:46px;
+    font-size:clamp(34px,5vw,52px);
 
     font-weight:normal;
 
-    letter-spacing:1px;
+    line-height:1.1;
 
     margin:0 0 25px;
 
@@ -282,13 +422,13 @@ h1 {
 
 .dates {
 
-    font-size:18px;
+    font-size:clamp(16px,2.5vw,22px);
 
-    letter-spacing:1px;
-
-    margin-bottom:55px;
+    font-style:italic;
 
     color:#555;
+
+    margin-bottom:50px;
 
 }
 
@@ -296,13 +436,17 @@ h1 {
 
 #countdown {
 
-    display:flex;
+    display:grid;
 
-    justify-content:center;
+    grid-template-columns:
 
-    gap:25px;
+    repeat(4, minmax(70px, 1fr));
 
-    flex-wrap:wrap;
+    gap:20px;
+
+    width:100%;
+
+    max-width:520px;
 
 }
 
@@ -310,13 +454,11 @@ h1 {
 
 .time {
 
-    background:#f6f3ef;
+    background:#f5f1eb;
 
-    border-radius:14px;
+    border-radius:16px;
 
-    padding:22px 20px;
-
-    min-width:90px;
+    padding:20px 10px;
 
 }
 
@@ -326,7 +468,7 @@ h1 {
 
     display:block;
 
-    font-size:55px;
+    font-size:clamp(32px,5vw,55px);
 
     line-height:1;
 
@@ -336,13 +478,13 @@ h1 {
 
 .label {
 
-    font-size:13px;
+    margin-top:10px;
 
-    text-transform:uppercase;
+    font-size:12px;
 
     letter-spacing:2px;
 
-    margin-top:12px;
+    text-transform:uppercase;
 
 }
 
@@ -350,11 +492,13 @@ h1 {
 
 .message {
 
-    margin-top:60px;
+    margin-top:45px;
 
-    font-size:17px;
+    font-size:15px;
 
     font-style:italic;
+
+    color:#666;
 
 }
 
@@ -363,67 +507,72 @@ h1 {
 @media(max-width:600px){
 
 
-h1 {
+.card {
 
-font-size:34px;
+    min-height:480px;
+
+}
+
+
+#countdown {
+
+    grid-template-columns:
+
+    repeat(2,1fr);
+
+    gap:15px;
 
 }
 
 
 .names {
 
-font-size:22px;
-
-}
-
-
-.number {
-
-font-size:40px;
-
-}
-
-
-.time {
-
-min-width:70px;
-
-padding:18px 14px;
+    font-size:24px;
 
 }
 
 
 }
+
 
 
 </style>
 
-
 </head>
-
-
-
 <body>
 
 
+<!-- INTRO ENVELOPE -->
 
 <div id="intro">
 
+
 <div class="envelope">
+
+
+<div class="envelope-flap"></div>
+
 
 <div class="envelope-text">
 
-For Brigitte & Cameron
+<span>For</span>
+
+<span>Brigitte & Cameron</span>
 
 </div>
 
-</div>
 
 </div>
 
 
+</div>
 
-<div class="container">
+
+
+
+<!-- FLOATING CARD -->
+
+<div class="card" id="card">
 
 
 <div class="names" id="names">
@@ -434,12 +583,13 @@ Brigitte & Cameron
 
 
 
+
 <div class="content" id="content">
 
 
 <h1>
 
-<strong>A Letter Through Time</strong>
+<strong>A Letter<br class="mobile-break"> Through Time</strong>
 
 </h1>
 
@@ -457,6 +607,7 @@ July 25, 2027
 
 
 
+
 <div id="countdown">
 
 
@@ -469,6 +620,7 @@ July 25, 2027
 </div>
 
 
+
 <div class="time">
 
 <span class="number" id="hours">00</span>
@@ -478,6 +630,7 @@ July 25, 2027
 </div>
 
 
+
 <div class="time">
 
 <span class="number" id="minutes">00</span>
@@ -485,6 +638,7 @@ July 25, 2027
 <span class="label">Minutes</span>
 
 </div>
+
 
 
 <div class="time">
@@ -499,11 +653,13 @@ July 25, 2027
 </div>
 
 
+
 <div class="message">
 
 please return when the countdown reaches zero
 
 </div>
+
 
 
 </div>
@@ -518,37 +674,88 @@ please return when the countdown reaches zero
 <script>
 
 
-// TIMING ANIMATION
+/* =========================
+REVEAL ANIMATION TIMING
+========================= */
 
 
-setTimeout(()=>{
+const intro = document.getElementById("intro");
 
+const card = document.getElementById("card");
 
-document.getElementById("intro").classList.add("hideIntro");
+const names = document.getElementById("names");
 
-
-document.getElementById("names").classList.add("show");
-
-
-},4000);
-
-
-
-setTimeout(()=>{
-
-
-document.getElementById("content").classList.add("show");
-
-
-},6500);
+const content = document.getElementById("content");
 
 
 
 
-// COUNTDOWN
+
+// Card pulls out of envelope
+
+setTimeout(() => {
+
+
+card.classList.add("reveal");
+
+
+}, 3800);
+
+
+
+
+
+// Envelope exits after card appears
+
+setTimeout(() => {
+
+
+intro.classList.add("exit");
+
+
+}, 5200);
+
+
+
+
+
+// Names appear first
+
+setTimeout(() => {
+
+
+names.classList.add("show");
+
+
+}, 6200);
+
+
+
+
+
+// Remaining content appears after names settle
+
+setTimeout(() => {
+
+
+content.classList.add("show");
+
+
+}, 8200);
+
+
+
+
+
+
+
+/* =========================
+COUNTDOWN
+========================= */
 
 
 const unlockDate = new Date("July 25, 2027 00:00:00").getTime();
+
 
 
 
@@ -558,39 +765,93 @@ function updateCountdown(){
 const now = new Date().getTime();
 
 
-const distance = unlockDate-now;
+const distance = unlockDate - now;
 
 
 
-if(distance<=0){
 
-document.getElementById("countdown").innerHTML="The moment has arrived.";
+
+if(distance <= 0){
+
+
+document.getElementById("countdown").innerHTML =
+
+"Your letter is ready.";
+
 
 return;
 
+
+}
+
+
+
+
+
+const days = Math.floor(
+
+distance / (1000 * 60 * 60 * 24)
+
+);
+
+
+
+const hours = Math.floor(
+
+(distance % (1000 * 60 * 60 * 24))
+
+/ (1000 * 60 * 60)
+
+);
+
+
+
+const minutes = Math.floor(
+
+(distance % (1000 * 60 * 60))
+
+/ (1000 * 60)
+
+);
+
+
+
+const seconds = Math.floor(
+
+(distance % (1000 * 60))
+
+/ 1000
+
+);
+
+
+
+
+
+document.getElementById("days").innerHTML = days;
+
+
+document.getElementById("hours").innerHTML = hours;
+
+
+document.getElementById("minutes").innerHTML = minutes;
+
+
+document.getElementById("seconds").innerHTML = seconds;
+
+
+
 }
 
 
-
-document.getElementById("days").innerHTML=Math.floor(distance/(1000*60*60*24));
-
-
-document.getElementById("hours").innerHTML=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-
-
-document.getElementById("minutes").innerHTML=Math.floor((distance%(1000*60*60))/(1000*60));
-
-
-document.getElementById("seconds").innerHTML=Math.floor((distance%(1000*60))/1000);
-
-
-}
 
 
 
 updateCountdown();
 
+
 setInterval(updateCountdown,1000);
+
 
 
 
@@ -598,5 +859,6 @@ setInterval(updateCountdown,1000);
 
 
 </body>
+
 
 </html>
