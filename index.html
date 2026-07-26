@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A Letter Through Time - Brigitte & Cameron</title>
+
+
+<style>
+
+body {
+    margin: 0;
+    background: #ffffff;
+    color: #222;
+    font-family: "Times New Roman", Times, serif;
+}
+
+
+.container {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 40px 20px;
+
+    box-sizing: border-box;
+
+}
+
+
+
+h1 {
+
+    font-size: 46px;
+
+    font-weight: normal;
+
+    letter-spacing: 1px;
+
+    margin: 0 0 25px;
+
+}
+
+
+
+.names {
+
+    font-size: 26px;
+
+    margin-bottom: 15px;
+
+}
+
+
+
+.dates {
+
+    font-size: 18px;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 55px;
+
+}
+
+
+
+#countdown {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 45px;
+
+    flex-wrap: wrap;
+
+}
+
+
+
+.time {
+
+    text-align: center;
+
+}
+
+
+
+.number {
+
+    display: block;
+
+    font-size: 55px;
+
+    line-height: 1;
+
+}
+
+
+
+.label {
+
+    font-size: 14px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+
+    margin-top: 12px;
+
+}
+
+
+
+.message {
+
+    margin-top: 60px;
+
+    font-size: 17px;
+
+    font-style: italic;
+
+}
+
+
+
+@media (max-width: 600px) {
+
+
+    h1 {
+
+        font-size: 34px;
+
+    }
+
+
+    .names {
+
+        font-size: 22px;
+
+    }
+
+
+    .number {
+
+        font-size: 40px;
+
+    }
+
+
+    #countdown {
+
+        gap: 25px;
+
+    }
+
+
+}
+
+
+
+</style>
+
+
+</head>
+
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>
+<strong>A Letter Through Time</strong>
+</h1>
+
+
+<div class="names">
+Brigitte & Cameron
+</div>
+
+
+<div class="dates">
+
+July 25, 2026
+&nbsp; → &nbsp;
+July 25, 2027
+
+</div>
+
+
+
+<div id="countdown">
+
+
+<div class="time">
+
+<span class="number" id="days">
+00
+</span>
+
+<span class="label">
+Days
+</span>
+
+</div>
+
+
+
+<div class="time">
+
+<span class="number" id="hours">
+00
+</span>
+
+<span class="label">
+Hours
+</span>
+
+</div>
+
+
+
+<div class="time">
+
+<span class="number" id="minutes">
+00
+</span>
+
+<span class="label">
+Minutes
+</span>
+
+</div>
+
+
+
+<div class="time">
+
+<span class="number" id="seconds">
+00
+</span>
+
+<span class="label">
+Seconds
+</span>
+
+</div>
+
+
+</div>
+
+
+
+<div class="message">
+
+please return when the countdown reaches zero
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+const unlockDate = new Date("July 25, 2027 00:00:00").getTime();
+
+
+
+function updateCountdown(){
+
+
+const now = new Date().getTime();
+
+
+const distance = unlockDate - now;
+
+
+
+if(distance <= 0){
+
+
+document.getElementById("countdown").innerHTML = "The moment has arrived.";
+
+
+return;
+
+
+}
+
+
+
+const days = Math.floor(
+
+distance / (1000 * 60 * 60 * 24)
+
+);
+
+
+
+const hours = Math.floor(
+
+(distance % (1000 * 60 * 60 * 24))
+
+/ (1000 * 60 * 60)
+
+);
+
+
+
+const minutes = Math.floor(
+
+(distance % (1000 * 60 * 60))
+
+/ (1000 * 60)
+
+);
+
+
+
+const seconds = Math.floor(
+
+(distance % (1000 * 60))
+
+/ 1000
+
+);
+
+
+
+document.getElementById("days").innerHTML = days;
+
+
+document.getElementById("hours").innerHTML = hours;
+
+
+document.getElementById("minutes").innerHTML = minutes;
+
+
+document.getElementById("seconds").innerHTML = seconds;
+
+
+
+}
+
+
+
+updateCountdown();
+
+
+setInterval(updateCountdown, 1000);
+
+
+
+</script>
+
+
+
+</body>
+
+</html>
