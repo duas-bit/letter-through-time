@@ -11,30 +11,256 @@
 <style>
 
 body {
+
     margin: 0;
-    background: #ffffff;
+
+    background: white;
+
     color: #222;
+
     font-family: "Times New Roman", Times, serif;
+
+    overflow: hidden;
+
 }
 
 
-.container {
+/* =====================
+ENVELOPE INTRO
+===================== */
 
-    min-height: 100vh;
+
+#intro {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: white;
 
     display: flex;
-
-    flex-direction: column;
 
     justify-content: center;
 
     align-items: center;
 
-    text-align: center;
+    z-index: 10;
 
-    padding: 40px 20px;
+}
 
-    box-sizing: border-box;
+
+
+.envelope {
+
+    width: 260px;
+
+    height: 170px;
+
+    background: #f4f1ed;
+
+    position: relative;
+
+    border-radius: 5px;
+
+    box-shadow: 0 15px 35px rgba(0,0,0,.08);
+
+}
+
+
+
+.envelope:before {
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    border-left:130px solid transparent;
+
+    border-right:130px solid transparent;
+
+    border-top:90px solid #e8e1d8;
+
+    transform-origin:top;
+
+    animation:openFlap 1.8s ease forwards;
+
+    animation-delay:1s;
+
+}
+
+
+
+.envelope-text {
+
+    position:absolute;
+
+    width:100%;
+
+    top:75px;
+
+    text-align:center;
+
+    font-size:18px;
+
+    letter-spacing:1px;
+
+}
+
+
+
+@keyframes openFlap {
+
+    from {
+
+        transform:rotateX(0);
+
+    }
+
+    to {
+
+        transform:rotateX(180deg);
+
+    }
+
+}
+
+
+
+.hideIntro {
+
+    animation: fadeIntro 1.5s ease forwards;
+
+}
+
+
+
+@keyframes fadeIntro {
+
+    to {
+
+        opacity:0;
+
+        visibility:hidden;
+
+    }
+
+}
+
+
+/* =====================
+MAIN CONTENT
+===================== */
+
+
+.container {
+
+    min-height:650px;
+
+    height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding:40px 20px;
+
+    box-sizing:border-box;
+
+}
+
+
+
+/* NAME TRANSITION */
+
+.names {
+
+    font-size:26px;
+
+    margin-bottom:15px;
+
+    opacity:0;
+
+}
+
+
+
+.names.show {
+
+    animation:nameAppear 2s ease forwards;
+
+}
+
+
+
+@keyframes nameAppear {
+
+
+    from {
+
+        opacity:0;
+
+        transform:translateY(-20px);
+
+    }
+
+
+    to {
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+
+}
+
+
+/* OTHER CONTENT */
+
+
+.content {
+
+    opacity:0;
+
+}
+
+
+
+.content.show {
+
+    animation:contentReveal 1.5s ease forwards;
+
+}
+
+
+
+@keyframes contentReveal {
+
+
+    from {
+
+        opacity:0;
+
+    }
+
+
+    to {
+
+        opacity:1;
+
+    }
+
 
 }
 
@@ -42,23 +268,13 @@ body {
 
 h1 {
 
-    font-size: 46px;
+    font-size:46px;
 
-    font-weight: normal;
+    font-weight:normal;
 
-    letter-spacing: 1px;
+    letter-spacing:1px;
 
-    margin: 0 0 25px;
-
-}
-
-
-
-.names {
-
-    font-size: 26px;
-
-    margin-bottom: 15px;
+    margin:0 0 25px;
 
 }
 
@@ -66,11 +282,13 @@ h1 {
 
 .dates {
 
-    font-size: 18px;
+    font-size:18px;
 
-    letter-spacing: 1px;
+    letter-spacing:1px;
 
-    margin-bottom: 55px;
+    margin-bottom:55px;
+
+    color:#555;
 
 }
 
@@ -78,13 +296,13 @@ h1 {
 
 #countdown {
 
-    display: flex;
+    display:flex;
 
-    justify-content: center;
+    justify-content:center;
 
-    gap: 45px;
+    gap:25px;
 
-    flex-wrap: wrap;
+    flex-wrap:wrap;
 
 }
 
@@ -92,7 +310,13 @@ h1 {
 
 .time {
 
-    text-align: center;
+    background:#f6f3ef;
+
+    border-radius:14px;
+
+    padding:22px 20px;
+
+    min-width:90px;
 
 }
 
@@ -100,11 +324,11 @@ h1 {
 
 .number {
 
-    display: block;
+    display:block;
 
-    font-size: 55px;
+    font-size:55px;
 
-    line-height: 1;
+    line-height:1;
 
 }
 
@@ -112,13 +336,13 @@ h1 {
 
 .label {
 
-    font-size: 14px;
+    font-size:13px;
 
-    text-transform: uppercase;
+    text-transform:uppercase;
 
-    letter-spacing: 2px;
+    letter-spacing:2px;
 
-    margin-top: 12px;
+    margin-top:12px;
 
 }
 
@@ -126,49 +350,50 @@ h1 {
 
 .message {
 
-    margin-top: 60px;
+    margin-top:60px;
 
-    font-size: 17px;
+    font-size:17px;
 
-    font-style: italic;
+    font-style:italic;
+
+}
+
+
+
+@media(max-width:600px){
+
+
+h1 {
+
+font-size:34px;
 
 }
 
 
+.names {
 
-@media (max-width: 600px) {
-
-
-    h1 {
-
-        font-size: 34px;
-
-    }
-
-
-    .names {
-
-        font-size: 22px;
-
-    }
-
-
-    .number {
-
-        font-size: 40px;
-
-    }
-
-
-    #countdown {
-
-        gap: 25px;
-
-    }
-
+font-size:22px;
 
 }
 
+
+.number {
+
+font-size:40px;
+
+}
+
+
+.time {
+
+min-width:70px;
+
+padding:18px 14px;
+
+}
+
+
+}
 
 
 </style>
@@ -181,23 +406,51 @@ h1 {
 <body>
 
 
+
+<div id="intro">
+
+<div class="envelope">
+
+<div class="envelope-text">
+
+For Brigitte & Cameron
+
+</div>
+
+</div>
+
+</div>
+
+
+
 <div class="container">
 
 
+<div class="names" id="names">
+
+Brigitte & Cameron
+
+</div>
+
+
+
+<div class="content" id="content">
+
+
 <h1>
+
 <strong>A Letter Through Time</strong>
+
 </h1>
 
-
-<div class="names">
-Brigitte & Cameron
-</div>
 
 
 <div class="dates">
 
 July 25, 2026
+
 &nbsp; → &nbsp;
+
 July 25, 2027
 
 </div>
@@ -209,61 +462,41 @@ July 25, 2027
 
 <div class="time">
 
-<span class="number" id="days">
-00
-</span>
+<span class="number" id="days">00</span>
 
-<span class="label">
-Days
-</span>
+<span class="label">Days</span>
 
 </div>
-
 
 
 <div class="time">
 
-<span class="number" id="hours">
-00
-</span>
+<span class="number" id="hours">00</span>
 
-<span class="label">
-Hours
-</span>
+<span class="label">Hours</span>
 
 </div>
-
 
 
 <div class="time">
 
-<span class="number" id="minutes">
-00
-</span>
+<span class="number" id="minutes">00</span>
 
-<span class="label">
-Minutes
-</span>
+<span class="label">Minutes</span>
 
 </div>
-
 
 
 <div class="time">
 
-<span class="number" id="seconds">
-00
-</span>
+<span class="number" id="seconds">00</span>
 
-<span class="label">
-Seconds
-</span>
+<span class="label">Seconds</span>
 
 </div>
 
 
 </div>
-
 
 
 <div class="message">
@@ -273,6 +506,8 @@ please return when the countdown reaches zero
 </div>
 
 
+</div>
+
 
 </div>
 
@@ -281,6 +516,36 @@ please return when the countdown reaches zero
 
 
 <script>
+
+
+// TIMING ANIMATION
+
+
+setTimeout(()=>{
+
+
+document.getElementById("intro").classList.add("hideIntro");
+
+
+document.getElementById("names").classList.add("show");
+
+
+},4000);
+
+
+
+setTimeout(()=>{
+
+
+document.getElementById("content").classList.add("show");
+
+
+},6500);
+
+
+
+
+// COUNTDOWN
 
 
 const unlockDate = new Date("July 25, 2027 00:00:00").getTime();
@@ -293,72 +558,30 @@ function updateCountdown(){
 const now = new Date().getTime();
 
 
-const distance = unlockDate - now;
+const distance = unlockDate-now;
 
 
 
-if(distance <= 0){
+if(distance<=0){
 
-
-document.getElementById("countdown").innerHTML = "The moment has arrived.";
-
+document.getElementById("countdown").innerHTML="The moment has arrived.";
 
 return;
-
 
 }
 
 
 
-const days = Math.floor(
-
-distance / (1000 * 60 * 60 * 24)
-
-);
+document.getElementById("days").innerHTML=Math.floor(distance/(1000*60*60*24));
 
 
-
-const hours = Math.floor(
-
-(distance % (1000 * 60 * 60 * 24))
-
-/ (1000 * 60 * 60)
-
-);
+document.getElementById("hours").innerHTML=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
 
 
-
-const minutes = Math.floor(
-
-(distance % (1000 * 60 * 60))
-
-/ (1000 * 60)
-
-);
+document.getElementById("minutes").innerHTML=Math.floor((distance%(1000*60*60))/(1000*60));
 
 
-
-const seconds = Math.floor(
-
-(distance % (1000 * 60))
-
-/ 1000
-
-);
-
-
-
-document.getElementById("days").innerHTML = days;
-
-
-document.getElementById("hours").innerHTML = hours;
-
-
-document.getElementById("minutes").innerHTML = minutes;
-
-
-document.getElementById("seconds").innerHTML = seconds;
-
+document.getElementById("seconds").innerHTML=Math.floor((distance%(1000*60))/1000);
 
 
 }
@@ -367,13 +590,11 @@ document.getElementById("seconds").innerHTML = seconds;
 
 updateCountdown();
 
-
-setInterval(updateCountdown, 1000);
+setInterval(updateCountdown,1000);
 
 
 
 </script>
-
 
 
 </body>
