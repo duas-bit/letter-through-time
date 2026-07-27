@@ -10,6 +10,7 @@
 
 <style>
 
+
 * {
     box-sizing:border-box;
 }
@@ -23,18 +24,20 @@ body {
 
     overflow:hidden;
 
-    background:white;
-
-    font-family:"Times New Roman", Times, serif;
+    background:#ffffff;
 
     color:#222;
+
+    font-family:"Times New Roman", Times, serif;
 
 }
 
 
-/* ==========================
-SCENE 1 - DEDICATION
-========================== */
+
+
+/* =====================================
+SCENE 1 — DEDICATION
+===================================== */
 
 
 #dedication {
@@ -53,7 +56,7 @@ SCENE 1 - DEDICATION
 
     background:white;
 
-    z-index:30;
+    z-index:50;
 
 }
 
@@ -62,6 +65,35 @@ SCENE 1 - DEDICATION
 .dedication-text {
 
     font-style:italic;
+
+    opacity:0;
+
+    animation:introFade 1.3s ease forwards;
+
+}
+
+
+
+@keyframes introFade {
+
+
+    from {
+
+        opacity:0;
+
+        transform:translateY(10px);
+
+    }
+
+
+    to {
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
 
 }
 
@@ -73,7 +105,7 @@ SCENE 1 - DEDICATION
 
     font-size:clamp(22px,3vw,34px);
 
-    margin-bottom:15px;
+    margin-bottom:12px;
 
 }
 
@@ -83,7 +115,7 @@ SCENE 1 - DEDICATION
 
     display:block;
 
-    font-size:clamp(42px,6vw,72px);
+    font-size:clamp(40px,6vw,72px);
 
     white-space:nowrap;
 
@@ -91,15 +123,18 @@ SCENE 1 - DEDICATION
 
 
 
-#dedication.fade {
+#dedication.fade-out {
 
-    animation:fadeOut 1.5s ease forwards;
+
+    animation:fadeAway 1.5s ease forwards;
+
 
 }
 
 
 
-@keyframes fadeOut {
+@keyframes fadeAway {
+
 
     to {
 
@@ -109,15 +144,16 @@ SCENE 1 - DEDICATION
 
     }
 
+
 }
 
 
 
 
 
-/* ==========================
-SCENE 2 - ENVELOPE
-========================== */
+/* =====================================
+SCENE 2 — ENVELOPE
+===================================== */
 
 
 #envelopeScene {
@@ -144,13 +180,16 @@ SCENE 2 - ENVELOPE
 
 #envelopeScene.show {
 
-    animation:sceneFadeIn 1.2s ease forwards;
+
+    animation:sceneAppear 1.2s ease forwards;
+
 
 }
 
 
 
-@keyframes sceneFadeIn {
+@keyframes sceneAppear {
+
 
     from {
 
@@ -158,13 +197,17 @@ SCENE 2 - ENVELOPE
 
     }
 
+
     to {
 
         opacity:1;
 
     }
 
+
 }
+
+
 
 
 
@@ -250,7 +293,9 @@ SCENE 2 - ENVELOPE
     background:#e7ddcf;
 
 
-    clip-path:polygon(0 0,100% 0,50% 100%);
+    clip-path:
+
+    polygon(0 0,100% 0,50% 100%);
 
 
     transform-origin:top;
@@ -291,9 +336,11 @@ SCENE 2 - ENVELOPE
 
 
 
-/* ==========================
-CARD
-========================== */
+
+
+/* =====================================
+CARD BASE
+===================================== */
 
 
 .card {
@@ -306,12 +353,6 @@ CARD
 
 
     left:50%;
-
-
-    transform:
-
-
-    translate(-50%,120vh);
 
 
     width:min(90vw,680px);
@@ -331,8 +372,7 @@ CARD
 
     box-shadow:
 
-
-    0 35px 90px rgba(0,0,0,.18);
+    0 20px 40px rgba(0,0,0,.10);
 
 
     padding:
@@ -352,24 +392,41 @@ CARD
     text-align:center;
 
 
-    z-index:25;
+    z-index:30;
+
+
+
+    transform:
+
+
+    translate(-50%,5vh)
+
+    scale(.42);
+
+
+    opacity:0;
 
 
 }
 
 
 
-.card.rise {
+/* Card first emerges */
+
+.card.pull-out {
 
 
-    animation:cardRise 2s ease forwards;
+    opacity:1;
+
+
+    animation:pullCard 2s ease forwards;
 
 
 }
 
 
 
-@keyframes cardRise {
+@keyframes pullCard {
 
 
     from {
@@ -377,8 +434,9 @@ CARD
 
         transform:
 
+        translate(-50%,5vh)
 
-        translate(-50%,120vh);
+        scale(.42);
 
 
     }
@@ -389,8 +447,9 @@ CARD
 
         transform:
 
+        translate(-50%,-62%)
 
-        translate(-50%,-50%);
+        scale(.48);
 
 
     }
@@ -400,9 +459,103 @@ CARD
 
 
 
-/* ==========================
+/* Card expands after envelope leaves */
+
+.card.expand {
+
+
+    animation:expandCard 2s cubic-bezier(.22,1,.36,1) forwards;
+
+
+}
+
+
+
+@keyframes expandCard {
+
+
+    from {
+
+
+        transform:
+
+        translate(-50%,-62%)
+
+        scale(.48);
+
+
+        box-shadow:
+
+        0 20px 40px rgba(0,0,0,.10);
+
+
+    }
+
+
+    to {
+
+
+        transform:
+
+        translate(-50%,-50%)
+
+        scale(1);
+
+
+        box-shadow:
+
+        0 35px 90px rgba(0,0,0,.18);
+
+
+    }
+
+
+}
+
+
+
+/* Envelope exit */
+
+#envelopeScene.exit {
+
+
+    animation:envelopeExit 1.2s ease forwards;
+
+
+}
+
+
+
+@keyframes envelopeExit {
+
+
+    from {
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+
+    to {
+
+        opacity:0;
+
+        transform:translateY(80px);
+
+    }
+
+
+}
+
+
+
+
+
+/* =====================================
 CONTENT
-========================== */
+===================================== */
 
 
 .content {
@@ -421,19 +574,21 @@ CONTENT
 .content.show {
 
 
-    animation:fadeContent 1.5s ease forwards;
+    animation:contentAppear 1.5s ease forwards;
 
 
 }
 
 
 
-@keyframes fadeContent {
+@keyframes contentAppear {
 
 
     from {
 
         opacity:0;
+
+        transform:translateY(15px);
 
     }
 
@@ -441,6 +596,8 @@ CONTENT
     to {
 
         opacity:1;
+
+        transform:translateY(0);
 
     }
 
@@ -452,13 +609,19 @@ CONTENT
 .names {
 
 
-    font-size:clamp(26px,4vw,38px);
+    font-size:
+
+    clamp(26px,4vw,38px);
+
 
     font-style:italic;
 
+
     white-space:nowrap;
 
+
     margin-bottom:30px;
+
 
 }
 
@@ -467,13 +630,15 @@ CONTENT
 h1 {
 
 
-    font-size:clamp(34px,5vw,52px);
+    font-size:
 
-
-    font-weight:normal;
+    clamp(34px,5vw,52px);
 
 
     line-height:1.15;
+
+
+    font-weight:normal;
 
 
     margin:0 0 25px;
@@ -486,7 +651,9 @@ h1 {
 .dates {
 
 
-    font-size:clamp(16px,2.5vw,22px);
+    font-size:
+
+    clamp(16px,2.5vw,22px);
 
 
     font-style:italic;
@@ -502,9 +669,11 @@ h1 {
 
 
 
-/* ==========================
+
+
+/* =====================================
 COUNTDOWN
-========================== */
+===================================== */
 
 
 #countdown {
@@ -548,7 +717,9 @@ COUNTDOWN
     display:block;
 
 
-    font-size:clamp(32px,5vw,55px);
+    font-size:
+
+    clamp(32px,5vw,55px);
 
 
 }
@@ -558,16 +729,16 @@ COUNTDOWN
 .label {
 
 
+    margin-top:10px;
+
+
     font-size:12px;
-
-
-    letter-spacing:2px;
 
 
     text-transform:uppercase;
 
 
-    margin-top:10px;
+    letter-spacing:2px;
 
 
 }
@@ -593,6 +764,8 @@ COUNTDOWN
 
 
 
+
+
 @media(max-width:600px){
 
 
@@ -601,15 +774,19 @@ COUNTDOWN
 
     font-size:32px;
 
+
 }
 
 
 
 .envelope {
 
+
     width:92vw;
 
+
     height:58vw;
+
 
 }
 
@@ -617,9 +794,12 @@ COUNTDOWN
 
 .card {
 
+
     width:92vw;
 
+
     min-height:500px;
+
 
 }
 
@@ -627,7 +807,9 @@ COUNTDOWN
 
 #countdown {
 
+
     grid-template-columns:repeat(2,1fr);
+
 
 }
 
@@ -635,12 +817,25 @@ COUNTDOWN
 
 h1 {
 
+
     font-size:34px;
 
+
+}
+
+
+
+.names {
+
+
+    font-size:25px;
+
+
 }
 
 
 }
+
 
 
 </style>
@@ -649,9 +844,9 @@ h1 {
 <body>
 
 
-<!-- ==========================
-SCENE 1 - DEDICATION
-========================== -->
+<!-- =================================
+SCENE 1 — DEDICATION
+================================= -->
 
 
 <div id="dedication">
@@ -679,9 +874,9 @@ SCENE 1 - DEDICATION
 
 
 
-<!-- ==========================
-SCENE 2 - ENVELOPE
-========================== -->
+<!-- =================================
+SCENE 2 — ENVELOPE
+================================= -->
 
 
 <div id="envelopeScene">
@@ -703,10 +898,9 @@ SCENE 2 - ENVELOPE
 
 
 
-
-<!-- ==========================
-SCENE 3 - CARD
-========================== -->
+<!-- =================================
+SCENE 3 — CARD
+================================= -->
 
 
 <div class="card" id="card">
@@ -715,11 +909,14 @@ SCENE 3 - CARD
 <div class="content" id="content">
 
 
+
 <div class="names">
 
 Brigitte & Cameron
 
 </div>
+
+
 
 
 
@@ -739,6 +936,7 @@ Through Time
 
 
 
+
 <div class="dates">
 
 July 25, 2026
@@ -748,6 +946,8 @@ July 25, 2026
 July 25, 2027
 
 </div>
+
+
 
 
 
@@ -773,6 +973,7 @@ Days
 
 
 
+
 <div class="time">
 
 <span class="number" id="hours">
@@ -784,6 +985,7 @@ Hours
 </span>
 
 </div>
+
 
 
 
@@ -803,6 +1005,7 @@ Minutes
 
 
 
+
 <div class="time">
 
 <span class="number" id="seconds">
@@ -817,8 +1020,9 @@ Seconds
 
 
 
-
 </div>
+
+
 
 
 
@@ -834,10 +1038,12 @@ please return when the countdown reaches zero
 
 
 
+
 </div>
 
 
 </div>
+
 
 
 
@@ -850,9 +1056,9 @@ please return when the countdown reaches zero
 <script>
 
 
-/* ==========================
-ANIMATION SEQUENCE
-========================== */
+/* =================================
+ANIMATION TIMELINE
+================================= */
 
 
 const dedication = document.getElementById("dedication");
@@ -871,23 +1077,24 @@ const content = document.getElementById("content");
 
 
 
-// Scene 1 fades away
+
+// Fade dedication away
 
 setTimeout(() => {
 
 
-    dedication.classList.add("fade");
+    dedication.classList.add("fade-out");
 
 
-}, 3000);
-
-
-
+}, 3500);
 
 
 
 
-// Envelope appears
+
+
+
+// Bring envelope in
 
 setTimeout(() => {
 
@@ -895,7 +1102,8 @@ setTimeout(() => {
     envelopeScene.classList.add("show");
 
 
-}, 4300);
+}, 5000);
+
 
 
 
@@ -909,14 +1117,14 @@ setTimeout(() => {
     envelope.classList.add("rise");
 
 
-}, 4500);
+}, 5200);
 
 
 
 
 
 
-// Flap opens
+// Open flap
 
 setTimeout(() => {
 
@@ -924,46 +1132,59 @@ setTimeout(() => {
     flap.classList.add("open");
 
 
-}, 6500);
+}, 7000);
 
 
 
 
 
 
-// Card comes out
-
-setTimeout(() => {
-
-
-    card.classList.add("rise");
-
-
-}, 7800);
-
-
-
-
-
-
-// Remove envelope scene
+// Card pulls out of envelope
 
 setTimeout(() => {
 
 
-    envelopeScene.style.opacity="0";
-
-    envelopeScene.style.visibility="hidden";
+    card.classList.add("pull-out");
 
 
-}, 9500);
+}, 8200);
 
 
 
 
 
 
-// Reveal final details
+// Envelope leaves after card is out
+
+setTimeout(() => {
+
+
+    envelopeScene.classList.add("exit");
+
+
+}, 10300);
+
+
+
+
+
+
+// Card grows into final position
+
+setTimeout(() => {
+
+
+    card.classList.add("expand");
+
+
+}, 10800);
+
+
+
+
+
+
+// Reveal information
 
 setTimeout(() => {
 
@@ -971,7 +1192,7 @@ setTimeout(() => {
     content.classList.add("show");
 
 
-}, 9800);
+}, 12800);
 
 
 
@@ -981,9 +1202,9 @@ setTimeout(() => {
 
 
 
-/* ==========================
+/* =================================
 COUNTDOWN
-========================== */
+================================= */
 
 
 const unlockDate = new Date(
@@ -1023,6 +1244,7 @@ return;
 
 
 }
+
 
 
 
@@ -1119,6 +1341,7 @@ setInterval(updateCountdown,1000);
 
 
 </script>
+
 
 
 </body>
