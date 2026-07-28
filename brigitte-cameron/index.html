@@ -1,1 +1,1349 @@
+<!DOCTYPE html>
+<html>
 
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A Letter Through Time - Brigitte & Cameron</title>
+
+
+<style>
+
+
+* {
+    box-sizing:border-box;
+}
+
+
+body {
+
+    margin:0;
+
+    height:100vh;
+
+    overflow:hidden;
+
+    background:#ffffff;
+
+    color:#222;
+
+    font-family:"Times New Roman", Times, serif;
+
+}
+
+
+
+
+/* =====================================
+SCENE 1 — DEDICATION
+===================================== */
+
+
+#dedication {
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    background:white;
+
+    z-index:50;
+
+}
+
+
+
+.dedication-text {
+
+    font-style:italic;
+
+    opacity:0;
+
+    animation:introFade 1.3s ease forwards;
+
+}
+
+
+
+@keyframes introFade {
+
+
+    from {
+
+        opacity:0;
+
+        transform:translateY(10px);
+
+    }
+
+
+    to {
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+
+}
+
+
+
+.dedication-for {
+
+    display:block;
+
+    font-size:clamp(22px,3vw,34px);
+
+    margin-bottom:12px;
+
+}
+
+
+
+.dedication-names {
+
+    display:block;
+
+    font-size:clamp(40px,6vw,72px);
+
+    white-space:nowrap;
+
+}
+
+
+
+#dedication.fade-out {
+
+
+    animation:fadeAway 1.5s ease forwards;
+
+
+}
+
+
+
+@keyframes fadeAway {
+
+
+    to {
+
+        opacity:0;
+
+        visibility:hidden;
+
+    }
+
+
+}
+
+
+
+
+
+/* =====================================
+SCENE 2 — ENVELOPE
+===================================== */
+
+
+#envelopeScene {
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:white;
+
+    opacity:0;
+
+    z-index:20;
+
+}
+
+
+
+#envelopeScene.show {
+
+
+    animation:sceneAppear 1.2s ease forwards;
+
+
+}
+
+
+
+@keyframes sceneAppear {
+
+
+    from {
+
+        opacity:0;
+
+    }
+
+
+    to {
+
+        opacity:1;
+
+    }
+
+
+}
+
+
+
+
+
+.envelope {
+
+
+    position:relative;
+
+
+    width:min(85vw,560px);
+
+
+    height:min(55vw,340px);
+
+
+    background:#f3eee6;
+
+
+    border-radius:12px;
+
+
+    box-shadow:
+
+    0 30px 70px rgba(0,0,0,.15);
+
+
+    transform:translateY(120vh);
+
+
+}
+
+
+
+.envelope.rise {
+
+
+    animation:envelopeRise 1.8s ease forwards;
+
+
+}
+
+
+
+@keyframes envelopeRise {
+
+
+    from {
+
+        transform:translateY(120vh);
+
+    }
+
+
+    to {
+
+        transform:translateY(0);
+
+    }
+
+
+}
+
+
+
+.flap {
+
+
+    position:absolute;
+
+
+    top:0;
+
+
+    left:0;
+
+
+    width:100%;
+
+
+    height:55%;
+
+
+    background:#e7ddcf;
+
+
+    clip-path:
+
+    polygon(0 0,100% 0,50% 100%);
+
+
+    transform-origin:top;
+
+
+}
+
+
+
+.flap.open {
+
+
+    animation:openFlap 1.5s ease forwards;
+
+
+}
+
+
+
+@keyframes openFlap {
+
+
+    from {
+
+        transform:rotateX(0deg);
+
+    }
+
+
+    to {
+
+        transform:rotateX(180deg);
+
+    }
+
+
+}
+
+
+
+
+
+/* =====================================
+CARD BASE
+===================================== */
+
+
+.card {
+
+
+    position:fixed;
+
+
+    top:50%;
+
+
+    left:50%;
+
+
+    width:min(90vw,680px);
+
+
+    min-height:560px;
+
+
+    background:white;
+
+
+    border-radius:28px;
+
+
+    border:1px solid #ebe5dd;
+
+
+    box-shadow:
+
+    0 20px 40px rgba(0,0,0,.10);
+
+
+    padding:
+
+    clamp(30px,6vw,65px);
+
+
+    display:flex;
+
+
+    justify-content:center;
+
+
+    align-items:center;
+
+
+    text-align:center;
+
+
+    z-index:30;
+
+
+
+    transform:
+
+
+    translate(-50%,5vh)
+
+    scale(.42);
+
+
+    opacity:0;
+
+
+}
+
+
+
+/* Card first emerges */
+
+.card.pull-out {
+
+
+    opacity:1;
+
+
+    animation:pullCard 2s ease forwards;
+
+
+}
+
+
+
+@keyframes pullCard {
+
+
+    from {
+
+
+        transform:
+
+        translate(-50%,5vh)
+
+        scale(.42);
+
+
+    }
+
+
+    to {
+
+
+        transform:
+
+        translate(-50%,-62%)
+
+        scale(.48);
+
+
+    }
+
+
+}
+
+
+
+/* Card expands after envelope leaves */
+
+.card.expand {
+
+
+    animation:expandCard 2s cubic-bezier(.22,1,.36,1) forwards;
+
+
+}
+
+
+
+@keyframes expandCard {
+
+
+    from {
+
+
+        transform:
+
+        translate(-50%,-62%)
+
+        scale(.48);
+
+
+        box-shadow:
+
+        0 20px 40px rgba(0,0,0,.10);
+
+
+    }
+
+
+    to {
+
+
+        transform:
+
+        translate(-50%,-50%)
+
+        scale(1);
+
+
+        box-shadow:
+
+        0 35px 90px rgba(0,0,0,.18);
+
+
+    }
+
+
+}
+
+
+
+/* Envelope exit */
+
+#envelopeScene.exit {
+
+
+    animation:envelopeExit 1.2s ease forwards;
+
+
+}
+
+
+
+@keyframes envelopeExit {
+
+
+    from {
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+
+    to {
+
+        opacity:0;
+
+        transform:translateY(80px);
+
+    }
+
+
+}
+
+
+
+
+
+/* =====================================
+CONTENT
+===================================== */
+
+
+.content {
+
+
+    opacity:0;
+
+
+    width:100%;
+
+
+}
+
+
+
+.content.show {
+
+
+    animation:contentAppear 1.5s ease forwards;
+
+
+}
+
+
+
+@keyframes contentAppear {
+
+
+    from {
+
+        opacity:0;
+
+        transform:translateY(15px);
+
+    }
+
+
+    to {
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+
+}
+
+
+
+.names {
+
+
+    font-size:
+
+    clamp(26px,4vw,38px);
+
+
+    font-style:italic;
+
+
+    white-space:nowrap;
+
+
+    margin-bottom:30px;
+
+
+}
+
+
+
+h1 {
+
+
+    font-size:
+
+    clamp(34px,5vw,52px);
+
+
+    line-height:1.15;
+
+
+    font-weight:normal;
+
+
+    margin:0 0 25px;
+
+
+}
+
+
+
+.dates {
+
+
+    font-size:
+
+    clamp(16px,2.5vw,22px);
+
+
+    font-style:italic;
+
+
+    color:#555;
+
+
+    margin-bottom:45px;
+
+
+}
+
+
+
+
+
+/* =====================================
+COUNTDOWN
+===================================== */
+
+
+#countdown {
+
+
+    display:grid;
+
+
+    grid-template-columns:repeat(4,1fr);
+
+
+    gap:18px;
+
+
+    width:100%;
+
+
+}
+
+
+
+.time {
+
+
+    background:#f5f1eb;
+
+
+    border-radius:16px;
+
+
+    padding:22px 10px;
+
+
+}
+
+
+
+.number {
+
+
+    display:block;
+
+
+    font-size:
+
+    clamp(32px,5vw,55px);
+
+
+}
+
+
+
+.label {
+
+
+    margin-top:10px;
+
+
+    font-size:12px;
+
+
+    text-transform:uppercase;
+
+
+    letter-spacing:2px;
+
+
+}
+
+
+
+.message {
+
+
+    margin-top:45px;
+
+
+    font-size:14px;
+
+
+    font-style:italic;
+
+
+    color:#666;
+
+
+}
+
+
+
+
+
+@media(max-width:600px){
+
+
+.dedication-names {
+
+
+    font-size:32px;
+
+
+}
+
+
+
+.envelope {
+
+
+    width:92vw;
+
+
+    height:58vw;
+
+
+}
+
+
+
+.card {
+
+
+    width:92vw;
+
+
+    min-height:500px;
+
+
+}
+
+
+
+#countdown {
+
+
+    grid-template-columns:repeat(2,1fr);
+
+
+}
+
+
+
+h1 {
+
+
+    font-size:34px;
+
+
+}
+
+
+
+.names {
+
+
+    font-size:25px;
+
+
+}
+
+
+}
+
+
+
+</style>
+
+</head>
+<body>
+
+
+<!-- =================================
+SCENE 1 — DEDICATION
+================================= -->
+
+
+<div id="dedication">
+
+
+    <div class="dedication-text">
+
+
+        <span class="dedication-for">
+            For
+        </span>
+
+
+        <span class="dedication-names">
+            Brigitte & Cameron
+        </span>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+<!-- =================================
+SCENE 2 — ENVELOPE
+================================= -->
+
+
+<div id="envelopeScene">
+
+
+    <div class="envelope" id="envelope">
+
+
+        <div class="flap" id="flap"></div>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+<!-- =================================
+SCENE 3 — CARD
+================================= -->
+
+
+<div class="card" id="card">
+
+
+<div class="content" id="content">
+
+
+
+<div class="names">
+
+Brigitte & Cameron
+
+</div>
+
+
+
+
+
+<h1>
+
+<strong>
+
+A Letter<br>
+
+Through Time
+
+</strong>
+
+</h1>
+
+
+
+
+
+
+<div class="dates">
+
+July 25, 2026
+
+&nbsp; → &nbsp;
+
+July 25, 2027
+
+</div>
+
+
+
+
+
+
+
+
+<div id="countdown">
+
+
+
+<div class="time">
+
+<span class="number" id="days">
+00
+</span>
+
+<span class="label">
+Days
+</span>
+
+</div>
+
+
+
+
+
+<div class="time">
+
+<span class="number" id="hours">
+00
+</span>
+
+<span class="label">
+Hours
+</span>
+
+</div>
+
+
+
+
+
+<div class="time">
+
+<span class="number" id="minutes">
+00
+</span>
+
+<span class="label">
+Minutes
+</span>
+
+</div>
+
+
+
+
+
+<div class="time">
+
+<span class="number" id="seconds">
+00
+</span>
+
+<span class="label">
+Seconds
+</span>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="message">
+
+please return when the countdown reaches zero
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<script>
+
+
+/* =================================
+ANIMATION TIMELINE
+================================= */
+
+
+const dedication = document.getElementById("dedication");
+
+const envelopeScene = document.getElementById("envelopeScene");
+
+const envelope = document.getElementById("envelope");
+
+const flap = document.getElementById("flap");
+
+const card = document.getElementById("card");
+
+const content = document.getElementById("content");
+
+
+
+
+
+
+// Fade dedication away
+
+setTimeout(() => {
+
+
+    dedication.classList.add("fade-out");
+
+
+}, 3500);
+
+
+
+
+
+
+
+// Bring envelope in
+
+setTimeout(() => {
+
+
+    envelopeScene.classList.add("show");
+
+
+}, 5000);
+
+
+
+
+
+
+// Envelope rises
+
+setTimeout(() => {
+
+
+    envelope.classList.add("rise");
+
+
+}, 5200);
+
+
+
+
+
+
+// Open flap
+
+setTimeout(() => {
+
+
+    flap.classList.add("open");
+
+
+}, 7000);
+
+
+
+
+
+
+// Card pulls out of envelope
+
+setTimeout(() => {
+
+
+    card.classList.add("pull-out");
+
+
+}, 8200);
+
+
+
+
+
+
+// Envelope leaves after card is out
+
+setTimeout(() => {
+
+
+    envelopeScene.classList.add("exit");
+
+
+}, 10300);
+
+
+
+
+
+
+// Card grows into final position
+
+setTimeout(() => {
+
+
+    card.classList.add("expand");
+
+
+}, 10800);
+
+
+
+
+
+
+// Reveal information
+
+setTimeout(() => {
+
+
+    content.classList.add("show");
+
+
+}, 12800);
+
+
+
+
+
+
+
+
+
+/* =================================
+COUNTDOWN
+================================= */
+
+
+const unlockDate = new Date(
+
+"July 25, 2027 00:00:00"
+
+).getTime();
+
+
+
+
+
+
+function updateCountdown(){
+
+
+
+const now = new Date().getTime();
+
+
+
+const distance = unlockDate - now;
+
+
+
+
+
+if(distance <= 0){
+
+
+document.getElementById("countdown").innerHTML =
+
+"Your letter is ready.";
+
+
+return;
+
+
+}
+
+
+
+
+
+
+const days = Math.floor(
+
+distance /
+
+(1000 * 60 * 60 * 24)
+
+);
+
+
+
+
+
+
+const hours = Math.floor(
+
+(distance %
+
+(1000 * 60 * 60 * 24))
+
+/
+
+(1000 * 60 * 60)
+
+);
+
+
+
+
+
+
+const minutes = Math.floor(
+
+(distance %
+
+(1000 * 60 * 60))
+
+/
+
+(1000 * 60)
+
+);
+
+
+
+
+
+
+const seconds = Math.floor(
+
+(distance %
+
+(1000 * 60))
+
+/
+
+1000
+
+);
+
+
+
+
+
+
+document.getElementById("days").innerHTML = days;
+
+
+document.getElementById("hours").innerHTML = hours;
+
+
+document.getElementById("minutes").innerHTML = minutes;
+
+
+document.getElementById("seconds").innerHTML = seconds;
+
+
+
+}
+
+
+
+
+
+updateCountdown();
+
+
+setInterval(updateCountdown,1000);
+
+
+
+</script>
+
+
+
+</body>
+
+</html>
